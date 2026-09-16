@@ -1,0 +1,22 @@
+# macOS
+.DS_Store
+
+# VS Code workspace settings
+.vscode/
+
+# Visual Studio caches
+**/.vs/
+*.VC.db
+*.VC.opendb
+*.suo
+
+# Generated homework build files
+hw1/Debug/
+hw1/Release/
+hw1/x64/
+hw1/Bin/Debug/*.exe
+hw1/Bin/Debug/*.ilk
+hw1/Bin/Debug/*.pdb
+hw1/Bin/Release/*.exe
+hw1/Bin/Release/*.ilk
+hw1/Bin/Release/*.pdb
