@@ -1,0 +1,14 @@
+{
+    "version": 1,
+    "revision": 0,
+    "rules": [
+        {
+            "primary-output": "C:\\Users\\super\\OneDrive\\Desktop\\CSCI420\\CSCI420-OpenGLHeightField\\hw1\\Bin\\Debug\\openGLMatrix.obj",
+            "outputs": [
+                "C:\\Users\\super\\OneDrive\\Desktop\\CSCI420\\CSCI420-OpenGLHeightField\\hw1\\Bin\\Debug\\openGLMatrix.cpp.obj.dt.module.json",
+                "C:\\Users\\super\\OneDrive\\Desktop\\CSCI420\\CSCI420-OpenGLHeightField\\hw1\\Bin\\Debug\\openGLMatrix.cpp.obj.dt.d.json"
+            ],
+            "requires": []
+        }
+    ]
+}
