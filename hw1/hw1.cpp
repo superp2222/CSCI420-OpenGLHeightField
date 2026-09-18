@@ -274,7 +274,8 @@ void keyboardFunc(unsigned char key, int x, int y)
 		break;
 
 		//Rendering modes.
-		renderMode = 1; //points
+	case '1':
+		renderMode = 1; // points
 		cout << "Switched to point rendering." << endl;
 		break;
 
@@ -317,7 +318,7 @@ void keyboardFunc(unsigned char key, int x, int y)
 	}
 }
 
-void displayFunc()
+/*void displayFunc()
 {
 	// This function performs the actual rendering.
 
@@ -358,6 +359,102 @@ void displayFunc()
 	glDrawArrays(GL_TRIANGLES, 0, numVertices); // Render the VAO, by rendering "numVertices", starting from vertex 0.
 
 	// Swap the double-buffers.
+	glutSwapBuffers();
+}*/
+
+void displayFunc()
+{
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+	// Build modelview matrix.
+	matrix.SetMatrixMode(OpenGLMatrix::ModelView);
+	matrix.LoadIdentity();
+
+	matrix.LookAt(
+		0.0f, 1.5f, 3.0f,
+		0.0f, 0.0f, 0.0f,
+		0.0f, 1.0f, 0.0f
+	);
+
+	matrix.Translate(
+		terrainTranslate[0],
+		terrainTranslate[1],
+		terrainTranslate[2]
+	);
+
+	matrix.Rotate(terrainRotate[0], 1.0f, 0.0f, 0.0f);
+	matrix.Rotate(terrainRotate[1], 0.0f, 1.0f, 0.0f);
+	matrix.Rotate(terrainRotate[2], 0.0f, 0.0f, 1.0f);
+
+	matrix.Scale(
+		terrainScale[0],
+		terrainScale[1],
+		terrainScale[2]
+	);
+
+	float modelViewMatrix[16];
+	matrix.GetMatrix(modelViewMatrix);
+
+	// Read projection matrix.
+	float projectionMatrix[16];
+	matrix.SetMatrixMode(OpenGLMatrix::Projection);
+	matrix.GetMatrix(projectionMatrix);
+
+	// Activate shader and upload uniforms.
+	pipelineProgram->Bind();
+
+	pipelineProgram->SetUniformVariableMatrix4fv(
+		"modelViewMatrix",
+		GL_FALSE,
+		modelViewMatrix
+	);
+
+	pipelineProgram->SetUniformVariableMatrix4fv(
+		"projectionMatrix",
+		GL_FALSE,
+		projectionMatrix
+	);
+
+	pipelineProgram->SetUniformVariablei(
+		"mode",
+		renderMode == 4 ? 1 : 0
+	);
+
+	pipelineProgram->SetUniformVariablef(
+		"scale",
+		heightFieldScale
+	);
+
+	pipelineProgram->SetUniformVariablef(
+		"exponent",
+		heightFieldExponent
+	);
+
+	// Draw the selected representation.
+	switch (renderMode)
+	{
+	case 1:
+		vaoPoints->Bind();
+		glPointSize(2.0f);
+		glDrawArrays(GL_POINTS, 0, numPointsVertices);
+		break;
+
+	case 2:
+		vaoLines->Bind();
+		glDrawArrays(GL_LINES, 0, numLinesVertices);
+		break;
+
+	case 3:
+		vaoTriangles->Bind();
+		glDrawArrays(GL_TRIANGLES, 0, numTrianglesVertices);
+		break;
+
+	case 4:
+		vaoSmooth->Bind();
+		glDrawArrays(GL_TRIANGLES, 0, numSmoothVertices);
+		break;
+	}
+
 	glutSwapBuffers();
 }
 
@@ -742,6 +839,7 @@ int main(int argc, char* argv[])
 
 	// Perform the initialization.
 	initScene(argc, argv);
+	buildHeightField();
 
 	// Sink forever into the GLUT loop.
 	glutMainLoop();
