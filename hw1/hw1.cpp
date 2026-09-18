@@ -97,15 +97,17 @@ VBO* vboSmoothDown = nullptr;
 VAO* vaoSmooth = nullptr;
 int numSmoothVertices = 0;
 
-// Current rendering mode, driven by keys "1"/"2"/"3"/"4".
+//la mode
 int renderMode = 3;
 
-// "scale" and "exponent" uniforms used only in render mode 4 (key "4").
+//scale and exponent
 float heightFieldScale = 1.0f;
 float heightFieldExponent = 1.0f;
 
-// The overall footprint (in world units) of the longer side of the height field.
+//overall height field size
 const float worldSize = 2.0f;
+//my rendered results look stretch af compared to the "correct" images, so this is an attempt to fix
+const float basicHeightScale = 0.25f;
 
 // Write a screenshot to the specified filename.
 void saveScreenshot(const char* filename)
@@ -577,7 +579,7 @@ void buildHeightField() {
 			float h = rawHeightAt(i, j);
 
 			pointsPos[3 * idx + 0] = x;
-			pointsPos[3 * idx + 1] = h;
+			pointsPos[3 * idx + 1] = basicHeightScale * h;
 			pointsPos[3 * idx + 2] = z;
 
 
@@ -603,7 +605,7 @@ void buildHeightField() {
 		float h = rawHeightAt(i, j);
 
 		linesPos[3 * v + 0] = x;
-		linesPos[3 * v + 1] = h;
+		linesPos[3 * v + 1] = basicHeightScale * h;
 		linesPos[3 * v + 2] = z;
 
 		linesColor[4 * v + 0] = h;
@@ -661,7 +663,7 @@ void buildHeightField() {
 			float h = rawHeightAt(i, j);
 
 			triPos[3 * t + 0] = x;
-			triPos[3 * t + 1] = h;
+			triPos[3 * t + 1] = basicHeightScale * h;
 			triPos[3 * t + 2] = z;
 
 			triColor[4 * t + 0] = h;

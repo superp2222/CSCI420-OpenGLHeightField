@@ -1,9 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <LocalDebuggerCommandArguments>.\heightmap\Heightmap.jpg</LocalDebuggerCommandArguments>
+    <LocalDebuggerCommandArguments>.\heightmap\spiral.jpg</LocalDebuggerCommandArguments>
     <DebuggerFlavor>WindowsLocalDebugger</DebuggerFlavor>
-    <LocalDebuggerCommandArgumentsHistory>./heightmap/Heightmap.jpg|.\heightmap\spiral.jpg|.\heightmap\GrandTeton-128.jpg|.\heightmap\Heightmap.jpg|</LocalDebuggerCommandArgumentsHistory>
+    <LocalDebuggerCommandArgumentsHistory>./heightmap/Heightmap.jpg|.\heightmap\GrandTeton-128.jpg|.\heightmap\Heightmap.jpg|.\heightmap\spiral.jpg|</LocalDebuggerCommandArgumentsHistory>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LocalDebuggerCommandArguments>./heightmap/Heightmap.jpg</LocalDebuggerCommandArguments>
